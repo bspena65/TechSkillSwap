@@ -1,0 +1,122 @@
+Table Users {
+    user_id SERIAL [pk]
+    first_name VARCHAR(50)
+    last_name VARCHAR(50)
+    email VARCHAR(100) [unique]
+    password_hash VARCHAR(255)
+    profile_picture_url VARCHAR(255)
+    bio TEXT
+    auth_provider VARCHAR(50)
+    auth_provider_id VARCHAR(255)
+}
+
+Table Roles {
+    role_id SERIAL [pk]
+    role_name VARCHAR(50) [unique]
+}
+
+Table UserRoles {
+    id SERIAL [pk]
+    user_id INT [ref: > Users.user_id]
+    role_id INT [ref: > Roles.role_id]
+}
+
+Table Languages {
+    language_id SERIAL [pk]
+    language_name VARCHAR(50) [unique]
+}
+
+Table UserLanguages {
+    id SERIAL [pk]
+    user_id INT [ref: > Users.user_id]
+    language_id INT [ref: > Languages.language_id]
+    proficiency_level VARCHAR(50)
+    years_of_experience INT
+}
+
+Table SkillCategories {
+    category_id SERIAL [pk]
+    category_name VARCHAR(100) [unique]
+}
+
+Table Skills {
+    skill_id SERIAL [pk]
+    skill_name VARCHAR(100) [unique]
+    category_id INT [ref: > SkillCategories.category_id]
+}
+
+Table UserSkills {
+    id SERIAL [pk]
+    user_id INT [ref: > Users.user_id]
+    skill_id INT [ref: > Skills.skill_id]
+    proficiency_level VARCHAR(50)
+    description TEXT
+    years_of_experience INT
+}
+
+Table FriendRequests {
+    request_id SERIAL [pk]
+    sender_id INT [ref: > Users.user_id]
+    receiver_id INT [ref: > Users.user_id]
+    status VARCHAR(50)
+    message TEXT
+    created_at TIMESTAMP
+    response_at TIMESTAMP
+}
+
+Table Chats {
+    chat_id SERIAL [pk]
+    created_at TIMESTAMP
+    updated_at TIMESTAMP
+}
+
+Table ChatParticipants {
+    chat_id INT [ref: > Chats.chat_id]
+    user_id INT [ref: > Users.user_id]
+}
+
+Table Messages {
+    message_id SERIAL [pk]
+    chat_id INT [ref: > Chats.chat_id]
+    sender_id INT [ref: > Users.user_id]
+    message TEXT
+    sent_at TIMESTAMP
+}
+
+Table Meetings {
+    meeting_id SERIAL [pk]
+    organizer_id INT [ref: > Users.user_id]
+    title VARCHAR(100)
+    description TEXT
+    start_time TIMESTAMP
+    end_time TIMESTAMP
+    zoom_link VARCHAR(255)
+    status VARCHAR(50)
+    created_at TIMESTAMP
+    reminder_time TIMESTAMP
+}
+
+Table MeetingParticipants {
+    id SERIAL [pk]
+    meeting_id INT [ref: > Meetings.meeting_id]
+    participant_id INT [ref: > Users.user_id]
+    email_sent BOOLEAN
+}
+
+Table Notifications {
+    notification_id SERIAL [pk]
+    user_id INT [ref: > Users.user_id]
+    message TEXT
+    type VARCHAR(50)
+    read BOOLEAN
+    created_at TIMESTAMP
+}
+
+Table UserRatings {
+    rating_id SERIAL [pk]
+    rater_id INT [ref: > Users.user_id]
+    ratee_id INT [ref: > Users.user_id]
+    rating INT
+    comment TEXT
+    created_at TIMESTAMP
+}

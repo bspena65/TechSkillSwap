@@ -1,0 +1,46 @@
+## Run docker postgress from scatchyar
+docker run --name my_postgres -e POSTGRES_USER=test -e POSTGRES_PASSWORD=test -e POSTGRES_DB=test -p 5432:5432 -d postgres
+
+## conect via terminal
+docker exec -it my_postgres psql -U test -d test
+
+## Run  pm2
+pm2 start npm --name "techskillback" -- start
+
+## List 
+pm2 list
+
+## pm2 delte
+pm2 delete 
+
+## verificar 1 migration
+npx typeorm-ts-node-commonjs migration:generate ./src/infrastructure/persistence/migration/InitialMigration -d ./src/infrastructure/persistence/typeormSource.ts
+## Make second migrate user mas
+npx typeorm-ts-node-commonjs migration:generate ./src/infrastructure/persistence/migration/AddLocationAndLabelProfileToUser -d ./src/infrastructure/persistence/typeormSource.ts
+## Make migration 
+npx typeorm-ts-node-commonjs migration:generate ./src/infrastructure/persistence/migration/AddLevelStudyAndStateToUserProfessionalStudy -d ./src/infrastructure/persistence/typeormSource.ts
+
+## Make migration c2
+npx typeorm-ts-node-commonjs migration:generate ./src/infrastructure/persistence/migration/UpdateUserSkillEntity -d ./src/infrastructure/persistence/typeormSource.ts
+
+
+## ----- RUN ALL MIGRATIONS -----
+npx typeorm-ts-node-commonjs migration:run -d ./src/infrastructure/persistence/typeormSource.ts
+
+____POStGREES
+show tables :  \dt
+get in table:  \d nombre_de_la_tabla;
+
+______DELETE ALL TABLES postgress terminal
+DO $$ 
+DECLARE
+    r RECORD;
+BEGIN
+    -- Para cada tabla en el esquema público
+    FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
+        EXECUTE 'DROP TABLE IF EXISTS ' || quote_ident(r.tablename) || ' CASCADE';
+    END LOOP;
+END $$;
+
+
+./makemigration.sh InitialMigration

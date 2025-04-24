@@ -19,4 +19,6 @@ export const AppDataSource = new DataSource({
   ssl: {
     rejectUnauthorized: false, // Desactiva la verificación del certificado (útil para desarrollo)
   },
+
+
 });

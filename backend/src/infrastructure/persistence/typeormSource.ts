@@ -16,4 +16,7 @@ export const AppDataSource = new DataSource({
   entities: ['src/domain/entity/*.ts'],
   migrations: ['src/infrastructure/persistence/migration/*.ts'],
   subscribers: [],
+  ssl: {
+    rejectUnauthorized: false, // Desactiva la verificación del certificado (útil para desarrollo)
+  },
 });

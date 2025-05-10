@@ -144,7 +144,7 @@ const RegisterTemplate: React.FC = () => {
                 type="password"
                 autoSave="off"
                 autoComplete="off"
-                placeholder="+8 caracteres"
+                placeholder="Contraseña (+8 caracteres)"
                 className="w-full p-3 bg-[#1E2126] text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 {...register("password", {
                   required: "La contraseña es requerida",

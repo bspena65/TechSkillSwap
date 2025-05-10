@@ -3,7 +3,7 @@ export const usersData = [
   {
     firstName: 'Brayan',
     lastName: 'Peña',
-    email: 'brayancurrea6@gmail.com',
+    email: 'brayancurrea6@.gmailcom',
     roles: ['admin', 'mentor', 'student'],
     bio: 'Desarrollador experto con pasión por enseñar y guiar a la próxima generación de programadores.',
     labelProfile: 'Desarrollador Full Stack',

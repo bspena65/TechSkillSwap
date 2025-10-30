@@ -97,7 +97,8 @@ export const Profile = () => {
         // Contar opiniones por cada calificación (5, 4, 3, 2, 1)
         const counts = [0, 0, 0, 0, 0];
         response.data.forEach((rating: Ratings) => {
-          counts[parseInt(rating.rate) - 1] += 1; // Aumenta el conteo basado en la calificación
+          const index = 5 - parseInt(rating.rate); // invertir el orden
+          counts[index] += 1;
         });
         setRatingCounts(counts);
       } else {
@@ -215,31 +216,26 @@ export const Profile = () => {
               <p className="text-gray-500">
                 {userProfile.location ? userProfile.location : "Sin Ubicación"}
               </p>
-              <div className="flex items-center">
-                <span
-                  className="text-black cursor-pointer text-5xl"
-                  onClick={() => setIsOpeningRating(true)}
-                >
-                  <div className="flex items-center gap-1">
-                    <span className="text-yellow-500 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-                      ★
-                    </span>
-                    <span className="text-yellow-500 text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-                      ★
-                    </span>
-                    <span className="text-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-                      ★
-                    </span>
-                    <span className="text-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-                      ★
-                    </span>
-                    <span className="text-black text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
-                      ★
-                    </span>
-                  </div>
-                </span>
-                {/* Example of rating stars */}
+              <div className="flex items-center" onClick={() => setIsOpeningRating(true)}>
+                {Array.from({ length: 5 }, (_, index) => (
+                  <span
+                    key={index}
+                    className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl ${
+                      index < Math.round(averageRating || 0)
+                        ? "text-yellow-500"
+                        : "text-black"
+                    }`}
+                  >
+                    ★
+                  </span>
+                ))}
+                {averageRating !== null && (
+                  <span className="ml-2 text-lg text-gray-600">
+                    {averageRating.toFixed(1)}
+                  </span>
+                )}
               </div>
+
             </div>
 
             {/* Edit Button in the top-right corner */}

@@ -102,17 +102,19 @@ export const ModalConfirmConnection = ({
       responseAt: new Date().toISOString(),
     };
 
-    updateFriendRequest &&
-      (await updateFriendRequest(IDfriendRequest, rta)
-        .then(() => {
-          showNotification(
-            "Notificación",
-            "Se acepta exitosamente la solicitud de conexión."
-          );
-        })
-        .finally(() => {
-          onClose();
-        }));
+if (updateFriendRequest) {
+  try {
+    await updateFriendRequest(IDfriendRequest, rta);
+    showNotification(
+      "Notificación",
+      "Se acepta exitosamente la solicitud de conexión."
+    );
+  } catch (error) {
+    console.error("Error al aceptar la solicitud:", error);
+    showNotification("Error", "No se pudo aceptar la solicitud.");
+  } finally {
+    onClose();
+  }}
   };
 
   return (

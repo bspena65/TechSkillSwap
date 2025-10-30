@@ -60,22 +60,48 @@ export const UserProfile: React.FC = () => {
     };
   }, [socket]);
 
-  const handleConnect = async (idReceiver: number, skillSender: number) => {
-    if (userProfile) {
-      try {
-        await createFriendRequest({
-          skillSender: { id: skillSender },
-          sender: { id: user?.id! },
-          receiver: { id: idReceiver },
-          status: FriendRequestStatus.PENDING,
-          message: " - ",
-        });
-        fetchUserProfile();
-      } catch (error) {
-        console.error("Error creating friend request:", error);
-      }
+const handleConnect = async (idReceiver: number, skillSender: number) => {
+  if (!user?.id) {
+    console.error("Usuario no autenticado");
+    return;
+  }
+
+  try {
+    // 1. Obtener la información actualizada del usuario desde la ruta correcta
+    const response = await axiosInstance.get(`/users/getById/${user.id}`);
+
+    // 2. Acceder correctamente al array de habilidades
+    const userSkills = response.data?.user?.userSkills || [];
+    console.log("🔍 Habilidades del usuario autenticado:", userSkills);
+
+    // 3. Validar si el usuario tiene al menos una habilidad registrada
+    if (userSkills.length === 0) {
+      alert(
+        "Debes tener al menos una habilidad registrada en tu perfil para enviar una solicitud de conexión."
+      );
+      return;
     }
-  };
+  
+    // 4. Crear la solicitud de conexión
+    await createFriendRequest({
+      skillSender: { id: skillSender },
+      sender: { id: user.id },
+      receiver: { id: idReceiver },
+      status: FriendRequestStatus.PENDING,
+      message: " - ",
+    });
+
+    // 5. Actualizar el perfil del usuario visualizado (refresca el estado en pantalla)
+    await fetchUserProfile();
+    console.log("✅ Solicitud de conexión enviada correctamente");
+
+  } catch (error) {
+    console.error("Error creating friend request:", error);
+    alert("Ocurrió un error al intentar enviar la solicitud de conexión.");
+
+  }
+};
+
 
   const getRequestStatusMessage = (status: string) => {
     switch (status) {

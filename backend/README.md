@@ -1,3 +1,4 @@
+```js
 🧠 TechSkillSwap Backend
 
 📌 Project Description
@@ -60,12 +61,13 @@ The backend is built using Node.js with TypeScript, following a layered (clean) 
 The system follows a Clean Architecture pattern:
 
 src/
+│
+├── application/          # Controllers, DTOs, and use cases
+├── domain/               # Entities, repositories, and core business logic
+├── infrastructure/       # Database, external services, and adapters
+├── shared/               # Common utilities, middleware, and helpers
+└── main.ts               # Entry point of the application
 
-- application/          # Controllers, DTOs, and use cases
-- domain/               # Entities, repositories, and core business logic
-- infrastructure/       # Database, external services, and adapters
-- shared/               # Common utilities, middleware, and helpers
-- main.ts               # Entry point of the application
 
 ⚙️ Environment Setup
 

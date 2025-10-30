@@ -1,5 +1,5 @@
 export const languages = [
- 'Java',
+  'Java',
   'JavaScript',
   'Python',
   'TypeScript',

@@ -116,6 +116,10 @@ Ensure tests pass before submitting a pull request.
 
 Please follow project coding standards and run all tests before committing changes.
 
+🧑‍💻 Author
+
+Developed and maintained by Brayan Peña y Diego Florez and collaborators of the TechSkillSwap project.
+
 🪪 License
 
 This project is licensed under the MIT License.

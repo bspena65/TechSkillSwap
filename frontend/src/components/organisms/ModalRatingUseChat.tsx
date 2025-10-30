@@ -87,11 +87,13 @@ export const ModalRatingUseChat = ({
 
   const onSubmit = async (data: FormValues) => {
     const isRatingValid = await trigger("rating");
-
     if (!isRatingValid) return;
 
+    // Redondear la calificación a entero (1-5)
+    const ratingValue = Math.max(1, Math.round(data.rating));
+
     const rta = {
-      rate: data.rating,
+      rate: ratingValue,
       message: data.comment,
       chatID: chatID,
       userID: userID,
@@ -102,10 +104,7 @@ export const ModalRatingUseChat = ({
     console.log("Calificación a enviar:", rta);
 
     try {
-      // Realiza la solicitud POST utilizando la instancia de axios configurada
       await axiosInstance.post("/rating", rta);
-
-      // Resetear el formulario después de enviarlo
       reset({ rating: 1, comment: "" });
       closeWithAnimation();
     } catch (error) {
@@ -114,6 +113,7 @@ export const ModalRatingUseChat = ({
       window.location.href = "/dash/messages";
     }
   };
+
 
   const modalContent = (
     <>
@@ -140,10 +140,10 @@ export const ModalRatingUseChat = ({
                   <ReactStars
                     count={5}
                     size={36}
-                    half={true}
+                    half={false} // si quieres solo enteros
                     value={getValues("rating")}
                     onChange={(value) => {
-                      setValue("rating", value);
+                      setValue("rating", value); // valor entero 1-5
                       trigger("rating");
                     }}
                     color2={"#ffd700"}

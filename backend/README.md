@@ -60,12 +60,12 @@ The backend is built using Node.js with TypeScript, following a layered (clean) 
 The system follows a Clean Architecture pattern:
 
 src/
-│
-├── application/          # Controllers, DTOs, and use cases
-├── domain/               # Entities, repositories, and core business logic
-├── infrastructure/       # Database, external services, and adapters
-├── shared/               # Common utilities, middleware, and helpers
-└── main.ts               # Entry point of the application
+
+- application/          # Controllers, DTOs, and use cases
+- domain/               # Entities, repositories, and core business logic
+- infrastructure/       # Database, external services, and adapters
+- shared/               # Common utilities, middleware, and helpers
+- main.ts               # Entry point of the application
 
 ⚙️ Environment Setup
 
@@ -124,8 +124,8 @@ See the LICENSE
 
 📚 Additional Resources
 
-TypeORM Documentation - https://typeorm.io
-Express.js Guide - https://expressjs.com
-Socket.IO Documentation - https://expressjs.com
-Passport.js Docs - http://www.passportjs.org
-AWS SDK for Node.js - https://docs.aws.amazon.com/sdk-for-javascript/
+- TypeORM Documentation - https://typeorm.io
+- Express.js Guide - https://expressjs.com
+- Socket.IO Documentation - https://expressjs.com
+- Passport.js Docs - http://www.passportjs.org
+- AWS SDK for Node.js - https://docs.aws.amazon.com/sdk-for-javascript/

@@ -63,7 +63,7 @@ For production-grade projects, it is recommended to use type-aware lint rules.
 
 Update your ESLint configuration as follows:
 
-
+js
 // eslint.config.js
 export default tseslint.config({
   languageOptions: {
@@ -100,6 +100,7 @@ Then extend the ESLint configuration:
 
 import react from 'eslint-plugin-react'
 
+js
 export default tseslint.config({
   settings: { react: { version: '18.3' } },
   plugins: { react },

@@ -181,10 +181,11 @@ export const Messages = () => {
                                 chatID={IdsParaRating.chatId}
                                 userID={IdsParaRating.userId}
                                 ownerCalification={
-                                  chat.friendRequest?.sender.id
+                                  chat.friendRequest?.sender?.id === user?.id
+                                    ? chat.friendRequest?.receiver?.id // si soy el sender, califico al receiver
+                                    : chat.friendRequest?.sender?.id   // si soy el receiver, califico al sender
                                 }
                               />
-
                               {rating.rating ? (
                                 <div
                                   className="relative flex justify-center items-center cursor-pointer"
@@ -217,11 +218,22 @@ export const Messages = () => {
                                 // Si no he calificado, mostrar que está pendiente
                                 <button
                                   onClick={() => {
-                                    setIsOpenRatingModal(true);
+                                    const ownerCalification =
+                                      chat.friendRequest?.sender?.id === user?.id
+                                        ? chat.friendRequest?.receiver?.id // si soy el sender, califico al receiver
+                                        : chat.friendRequest?.sender?.id;  // si soy el receiver, califico al sender
+
+                                    // Validación: evitar que un usuario se califique a sí mismo
+                                    if (Number(ownerCalification) === Number(user?.id)) {
+                                      alert("No puedes calificarte a ti mismo.");
+                                      return;
+                                    }
+
                                     setIdParaRating({
                                       chatId: chat.id,
                                       userId: user?.id!,
                                     });
+                                    setIsOpenRatingModal(true);
                                   }}
                                   className="px-4 py-2 gradient-background-azulfeo text-white rounded-lg"
                                 >

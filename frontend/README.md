@@ -1,3 +1,4 @@
+```js
 ⚛️ React + TypeScript + Vite
 
 This project is a modern React + TypeScript front-end built with Vite, providing a fast and flexible development environment with Hot Module Replacement (HMR), ESLint integration, and production-ready optimizations.
@@ -63,7 +64,7 @@ For production-grade projects, it is recommended to use type-aware lint rules.
 
 Update your ESLint configuration as follows:
 
-```js
+
 // eslint.config.js
 export default tseslint.config({
   languageOptions: {

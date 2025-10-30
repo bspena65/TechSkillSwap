@@ -27,6 +27,3 @@
 - [ ] Solo color en puntica de btn notification
 - [ ] Colocar label and ubication en el seed
 - [ ] ? Make puntajes con chats y friendrequest  y skill uuyy no
-# SwapTechSkill
-# SwapTechSkill
-# TechSkillSwap
